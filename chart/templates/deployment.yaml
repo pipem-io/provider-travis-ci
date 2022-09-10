@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider-{{ .Values.provider }}
+  labels:
+    app: pipem.io
+    component: provider-{{ .Values.provider }}
+    role: provider
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      component: provider-{{ .Values.provider }}
+  template:
+    metadata:
+      labels:
+        app: pipem.io
+        component: provider-{{ .Values.provider }}
+        role: provider
+    spec:
+      serviceAccountName: pipem-sa
+      containers:
+        - name: provider-{{ .Values.provider }}
+          image: {{ .Values.image }}:{{ .Values.version }}
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "10m"
+            limits:
+              memory: "256Mi"
+              cpu: "100m"
+          envFrom:
+            - configMapRef:
+                name: pipem-config
+          env:
+            - name: 'MONGODB_URI'
+              valueFrom:
+                secretKeyRef:
+                  name: pipem-secret
+                  key: MONGODB_URI

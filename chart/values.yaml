@@ -1,0 +1,6 @@
+image: docker.pipem.io/provider-travis-ci
+version: VERSION
+
+replicas: 1
+
+provider: travis-ci

@@ -1,0 +1,13 @@
+apiVersion: v2
+name: provider-travis-ci
+description: Provider Travis-CI
+type: application
+icon: "https://avatars.githubusercontent.com/u/96174842"
+
+version: VERSION
+appVersion: VERSION
+
+maintainers:
+  - name: Pipem.io
+    email: info@pipem.io
+    url: https://pipem.io
